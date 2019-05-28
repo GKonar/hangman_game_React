@@ -6,7 +6,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Hangman />
+				<Hangman maxGuesses={6} />
 			</div>
 		);
 	}

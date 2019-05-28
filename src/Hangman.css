@@ -3,6 +3,10 @@
   color: black;
   text-align: center;
   zoom: 1.3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Hangman img {
@@ -31,7 +35,7 @@
   margin-top: 0;
 }
 
-.Hangman button {
+.Hangman-ltrBtn {
   border: none;
   font-family: inherit;
   font-size: 1rem;
@@ -47,12 +51,21 @@
   padding-top: 4px;
 }
 
-.Hangman button:hover {
+.Hangman-ltrBtn:hover {
   background-color: #ff9800;
 }
 
-.Hangman button:disabled {
+.Hangman-ltrBtn:disabled {
   background: #bdbdbd;
   color: #eeeeee;
   box-shadow: 0 6px #9e9e9e;
+}
+
+.Hangman-resetBtn {
+  padding: 1rem 3rem;
+  margin: 2rem;
+  color: white;
+  background-color: #c23616;
+  border-radius: 5px;
+  outline: none;
 }
