@@ -62,27 +62,20 @@ class Hangman extends Component {
 	reset() {
 		this.setState({
 			nWrong: 0,
-			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
 			answer: 'apple' //randomWord()
 		});
 	}
 
 	render() {
-		/** Display correct answer when player lose */
-		let word = this.state.nWrong < this.state.maxWrong ? this.guessedWord() : this.state.answer;
-
-		/** Display message when player lose */
+		const isPlaying = this.state.nWrong < this.state.maxWrong;
 		let btns;
-		if (this.state.nWrong < this.state.maxWrong) {
+		if (isPlaying && this.guessedWord().includes('_')) {
 			btns = this.generateButtons();
+		} else if (isPlaying && !this.guessedWord().includes('_')) {
+			btns = <span className="Hangman-msg">You win! Congrats!</span>;
 		} else {
 			btns = <span className="Hangman-msg">You Lose! Try again! &darr;</span>;
-		}
-
-		/** Display message when player wins */
-		if (!word.includes('_') && this.state.nWrong < this.state.maxWrong) {
-			btns = <span className="Hangman-msg">You win! Congrats!</span>;
 		}
 
 		return (
@@ -95,7 +88,7 @@ class Hangman extends Component {
 				<p className="Hangman-wrongNum">
 					You have {this.state.nWrong} wrong guesses out of {this.state.maxWrong}
 				</p>
-				<p className="Hangman-word">{word}</p>
+				<p className="Hangman-word">{isPlaying ? this.guessedWord() : this.state.answer}</p>
 				<p className="Hangman-btns">{btns}</p>
 				<button onClick={this.reset} className="Hangman-resetBtn">
 					RESET
