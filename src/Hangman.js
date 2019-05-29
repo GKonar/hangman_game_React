@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './Hangman.css';
 import { randomWord } from './words';
-import img0 from './0.jpg';
-import img1 from './1.jpg';
-import img2 from './2.jpg';
-import img3 from './3.jpg';
-import img4 from './4.jpg';
-import img5 from './5.jpg';
-import img6 from './6.jpg';
+import img0 from './0.png';
+import img1 from './1.png';
+import img2 from './2.png';
+import img3 from './3.png';
+import img4 from './4.png';
+import img5 from './5.png';
+import img6 from './6.png';
 
 class Hangman extends Component {
 	static defaultProps = {
@@ -20,7 +20,7 @@ class Hangman extends Component {
 			nWrong: 0,
 			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
-			answer: randomWord()
+			answer: 'apple' //randomWord()
 		};
 		this.handleGuess = this.handleGuess.bind(this);
 		this.reset = this.reset.bind(this);
@@ -64,17 +64,26 @@ class Hangman extends Component {
 			nWrong: 0,
 			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
-			answer: randomWord()
+			answer: 'apple' //randomWord()
 		});
 	}
 
 	render() {
 		/** Display correct answer when player lose */
 		let word = this.state.nWrong < this.state.maxWrong ? this.guessedWord() : this.state.answer;
+
 		/** Display message when player lose */
-		let btns = this.state.nWrong < this.state.maxWrong ? this.generateButtons() : <span>You Lose!</span>;
+		let btns;
+		if (this.state.nWrong < this.state.maxWrong) {
+			btns = this.generateButtons();
+		} else {
+			btns = <span className="Hangman-msg">You Lose! Try again! &darr;</span>;
+		}
+
 		/** Display message when player wins */
-		!word.includes('_') && this.state.nWrong < this.state.maxWrong ? (btns = <span>You win! Congrats!</span>) : btns;
+		if (!word.includes('_') && this.state.nWrong < this.state.maxWrong) {
+			btns = <span className="Hangman-msg">You win! Congrats!</span>;
+		}
 
 		return (
 			<div className="Hangman">
@@ -84,7 +93,7 @@ class Hangman extends Component {
 					alt={`${this.state.nWrong}/${this.state.maxWrong} wrong guesses`}
 				/>
 				<p className="Hangman-wrongNum">
-					You have {this.state.nWrong} wrong guesses out of {this.state.maxWrong} chances
+					You have {this.state.nWrong} wrong guesses out of {this.state.maxWrong}
 				</p>
 				<p className="Hangman-word">{word}</p>
 				<p className="Hangman-btns">{btns}</p>
