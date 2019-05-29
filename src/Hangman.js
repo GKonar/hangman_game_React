@@ -20,13 +20,14 @@ class Hangman extends Component {
 			nWrong: 0,
 			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
-			answer: randomWord()
+			answer: 'apple' //randomWord()
 		};
 		this.handleGuess = this.handleGuess.bind(this);
 		this.reset = this.reset.bind(this);
 	}
 
 	guessedWord() {
+		/** if thers is a letter in guessed letters which includes letter from answer it show ups UI */
 		return this.state.answer.split('').map(ltr => (this.state.guessed.has(ltr) ? ltr : '_'));
 	}
 
@@ -34,6 +35,7 @@ class Hangman extends Component {
     - add to guessed letters
     - if not in answer, increase number-wrong guesses
   */
+
 	handleGuess(evt) {
 		let ltr = evt.target.value;
 		this.setState(st => ({
@@ -42,6 +44,7 @@ class Hangman extends Component {
 		}));
 	}
 
+	/**  Generate all ltr buttons in UI */
 	generateButtons() {
 		return 'abcdefghijklmnopqrstuvwxyz'.split('').map((ltr, index) => (
 			<button
@@ -61,13 +64,18 @@ class Hangman extends Component {
 			nWrong: 0,
 			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
-			answer: randomWord()
+			answer: 'apple' //randomWord()
 		});
 	}
 
 	render() {
-		let btns = this.state.nWrong < this.state.maxWrong ? this.generateButtons() : 'You Lose!';
+		/** Display correct answer when player lose */
 		let word = this.state.nWrong < this.state.maxWrong ? this.guessedWord() : this.state.answer;
+		/** Display message when player lose */
+		let btns = this.state.nWrong < this.state.maxWrong ? this.generateButtons() : <span>You Lose!</span>;
+		/** Display message when player wins */
+		!word.includes('_') ? (btns = <span>You win! Congrats!</span>) : btns;
+
 		return (
 			<div className="Hangman">
 				<h1>Hangman</h1>
