@@ -20,7 +20,7 @@ class Hangman extends Component {
 			nWrong: 0,
 			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
-			answer: 'apple' //randomWord()
+			answer: randomWord()
 		};
 		this.handleGuess = this.handleGuess.bind(this);
 		this.reset = this.reset.bind(this);
@@ -64,7 +64,7 @@ class Hangman extends Component {
 			nWrong: 0,
 			maxWrong: this.props.maxGuesses,
 			guessed: new Set(),
-			answer: 'apple' //randomWord()
+			answer: randomWord()
 		});
 	}
 
@@ -74,7 +74,7 @@ class Hangman extends Component {
 		/** Display message when player lose */
 		let btns = this.state.nWrong < this.state.maxWrong ? this.generateButtons() : <span>You Lose!</span>;
 		/** Display message when player wins */
-		!word.includes('_') ? (btns = <span>You win! Congrats!</span>) : btns;
+		!word.includes('_') && this.state.nWrong < this.state.maxWrong ? (btns = <span>You win! Congrats!</span>) : btns;
 
 		return (
 			<div className="Hangman">
